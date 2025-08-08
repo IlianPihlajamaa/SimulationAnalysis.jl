@@ -9,11 +9,12 @@ filepath = joinpath(dirname(pathof(SimulationAnalysis)), &quot;..&quot;, &quot;t
 # If you have access to the data in some other format, you need to 
 # construct a Simulation object manually.
 sim = SimulationAnalysis.read_continuously_hard_sphere_simulation(filepath; time_origins=10)
-display(sim)</code></pre><pre><code class="nohighlight hljs">This is a SingleComponentSimulation.
-It contains
+display(sim)</code></pre><pre><code class="nohighlight hljs">Reading data file
+This is a SingleComponentSimulation.
+It contains the fields:
 N: 1000
 Ndims: 3
-Nt:  430
+Nt: 430
 dt: 0.01
 r_array: Array{Float64, 3}
 v_array: Array{Float64, 3}
@@ -23,7 +24,7 @@ t_array: Vector{Float64}
 box_sizes: Vector{Float64}
 dt_array: Vector{Float64}
 t1_t2_pair_array: Vector{Matrix{Int64}}
-filepath: C:\Users\Me\.julia\dev\SimulationAnalysis\src\..\test\data\test_trajectory.h5</code></pre><p>So as we can see, we have loaded a simulation object of 1000 particles with 430 saved frames, at the time points given by <code>t_array</code>.</p><hr/><h2 id="Radial-Distribution-Function-(g(r))"><a class="docs-heading-anchor" href="#Radial-Distribution-Function-(g(r))">Radial Distribution Function (g(r))</a><a id="Radial-Distribution-Function-(g(r))-1"></a><a class="docs-heading-anchor-permalink" href="#Radial-Distribution-Function-(g(r))" title="Permalink"></a></h2><p>The radial distribution function describes the structure of the system.</p><pre><code class="language-julia hljs"># Set parameters for g(r) calculation
+filepath: C:\Users\Ilian\.julia\dev\SimulationAnalysis\src\..\test\data\test_trajectory.h5</code></pre><p>So as we can see, we have loaded a simulation object of 1000 particles with 430 saved frames, at the time points given by <code>t_array</code>.</p><hr/><h2 id="Radial-Distribution-Function-(g(r))"><a class="docs-heading-anchor" href="#Radial-Distribution-Function-(g(r))">Radial Distribution Function (g(r))</a><a id="Radial-Distribution-Function-(g(r))-1"></a><a class="docs-heading-anchor-permalink" href="#Radial-Distribution-Function-(g(r))" title="Permalink"></a></h2><p>The radial distribution function describes the structure of the system.</p><pre><code class="language-julia hljs"># Set parameters for g(r) calculation
 Nbins = 100
 rmax = 5.0
 
@@ -117,4 +118,4 @@ plot(sim.dt_array[2:end], msd[2:end],
     lw=2,
     xscale=:log10,
     yscale=:log10,
-)</code></pre><p><img src="../plots/msd.png" alt="MSD"/></p><hr/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial/">« Tutorial</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 8 August 2025 08:55">Friday 8 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+)</code></pre><p><img src="../plots/msd.png" alt="MSD"/></p><hr/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial/">« Tutorial</a><a class="docs-footer-nextpage" href="../api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 8 August 2025 09:30">Friday 8 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
