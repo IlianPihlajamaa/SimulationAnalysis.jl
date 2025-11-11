@@ -198,6 +198,9 @@ push!(v0_MC, ones(200))
 
 sim_MC = SimulationAnalysis.read_SPV_simulation_multicomponent(traj, params, species)
 
+u_zeros = [zeros(200,sim_MC.Nt), zeros(200,sim_MC.Nt)]
+F_zeros = [zeros(2,200,sim_MC.Nt), zeros(2,200,sim_MC.Nt)]
+
 sim4 = MCSPVSimulation(
     400,
     sim_MC.Ndims,
@@ -208,8 +211,8 @@ sim4 = MCSPVSimulation(
     sim_MC.mobility,
     sim_MC.N_particles_per_species,
     sim_MC.r_array,
-    zero(sim_MC.u_array),  # replace orientations by zeros
-    zero(sim_MC.F_array),
+    u_zeros,
+    F_zeros,
     sim_MC.perimeter_array,
     sim_MC.area_array,
     sim_MC.Epot_array,
