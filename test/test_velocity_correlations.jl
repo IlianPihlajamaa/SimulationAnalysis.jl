@@ -208,8 +208,8 @@ sim4 = MCSPVSimulation(
     sim_MC.mobility,
     sim_MC.N_particles_per_species,
     sim_MC.r_array,
-    [zeros(sim_MC.N, sim_MC.Nt) for i=1:sim_MC.Ns],  # orientations
-    [zeros(sim_MC.Ndims, sim_MC.N, sim_MC.Nt) for i=1:sim_MC.Ns],  # forces
+    [zeros(sim_MC.N_particles_per_species[i], sim_MC.Nt) for i=1:sim_MC.N_species],  # orientations
+    [zeros(sim_MC.Ndims, sim_MC.N_particles_per_species[i], sim_MC.Nt) for i=1:sim_MC.N_species],  # forces
     sim_MC.perimeter_array,
     sim_MC.area_array,
     sim_MC.Epot_array,

@@ -118,7 +118,7 @@ and n_j = (cosθ_j, sinθ_j) is the orientation vector of the active force. Both
 - `s::MCSPVSimulation`: A multi-component SPV simulation object.
 """
 function calculate_total_force(s::MCSPVSimulation)
-    Ftot = [zeros(s.Ndims, s.N, s.Nt) for i=1:s.Ns]
+    Ftot = [zeros(s.Ndims, s.N_particles_per_species[i], s.Nt) for i=1:s.N_species]
 
     for i=1:s.N_species
         f = s.F_array[i]; u = s.u_array[i]; v0 = s.v0[i]; μ = s.mobility[i]
