@@ -172,7 +172,7 @@ sim3 = SelfPropelledVoronoiSimulation(
     sim.mobility,
     sim.r_array,
     sim.u_array,
-    zero(sim.F_array),
+    zeros(sim.Ndims, sim.N, sim.Nt),
     sim.perimeter_array,
     sim.area_array,
     sim.Epot_array,
@@ -198,9 +198,6 @@ push!(v0_MC, ones(200))
 
 sim_MC = SimulationAnalysis.read_SPV_simulation_multicomponent(traj, params, species)
 
-u_zeros = [zeros(200,sim_MC.Nt), zeros(200,sim_MC.Nt)]
-F_zeros = [zeros(2,200,sim_MC.Nt), zeros(2,200,sim_MC.Nt)]
-
 sim4 = MCSPVSimulation(
     400,
     sim_MC.Ndims,
@@ -211,8 +208,8 @@ sim4 = MCSPVSimulation(
     sim_MC.mobility,
     sim_MC.N_particles_per_species,
     sim_MC.r_array,
-    u_zeros,
-    F_zeros,
+    [zeros(s.N, s.Nt) for i=1:s.Ns],  # orientations
+    [zeros(s.Ndims, s.N, s.Nt) for i=1:s.Ns],  # forces
     sim_MC.perimeter_array,
     sim_MC.area_array,
     sim_MC.Epot_array,
