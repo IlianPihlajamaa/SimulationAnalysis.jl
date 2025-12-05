@@ -111,14 +111,14 @@ end
 
 Calculates the total force on every particle, scaled by the mobility, for all timesteps and all species in a multi-component Self-Propelled Voronoi simulation.
     
-The total force is defined as: Ftot_j = μ Fint_j + v0 n_j, where Fint_j is the interaction force, 
+The total force is defined as: Ftot_j = μ Fint_j + v0 n_j, where Fint_j is the interaction force, v0 is the single-particle active force strength
 and n_j = (cosθ_j, sinθ_j) is the orientation vector of the active force. Both forces are time-dependent.
 
 # Arguments
 - `s::MCSPVSimulation`: A multi-component SPV simulation object.
 """
 function calculate_total_force(s::MCSPVSimulation)
-    Ftot = zero(s.F_array);
+    Ftot = [zeros(s.Ndims, s.N_particles_per_species[i], s.Nt) for i=1:s.N_species]
 
     for i=1:s.N_species
         f = s.F_array[i]; u = s.u_array[i]; v0 = s.v0[i]; μ = s.mobility[i]

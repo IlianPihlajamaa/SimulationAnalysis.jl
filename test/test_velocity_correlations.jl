@@ -172,7 +172,7 @@ sim3 = SelfPropelledVoronoiSimulation(
     sim.mobility,
     sim.r_array,
     sim.u_array,
-    zero(sim.F_array),
+    zeros(sim.Ndims, sim.N, sim.Nt),
     sim.perimeter_array,
     sim.area_array,
     sim.Epot_array,
@@ -186,3 +186,43 @@ sim3 = SelfPropelledVoronoiSimulation(
 Ftot3 = SimulationAnalysis.calculate_total_force(sim3);
 @test sim3.F_array != Ftot3
 @test Ftot3[1,:,:] == sim3.v0 / sim3.mobility * cos.(sim.u_array)
+
+
+# multicomponent test: force calculation
+species = Int.(ones(400))
+species[201:400] .= 2
+
+v0_MC = []
+push!(v0_MC, 10*ones(200))
+push!(v0_MC, ones(200))
+
+sim_MC = SimulationAnalysis.read_SPV_simulation_multicomponent(traj, params, species)
+
+sim4 = MCSPVSimulation(
+    400,
+    sim_MC.Ndims,
+    2,
+    sim_MC.Nt,
+    sim_MC.dt,
+    v0_MC,
+    sim_MC.mobility,
+    sim_MC.N_particles_per_species,
+    sim_MC.r_array,
+    [zeros(sim_MC.N_particles_per_species[i], sim_MC.Nt) for i=1:sim_MC.N_species],  # orientations
+    [zeros(sim_MC.Ndims, sim_MC.N_particles_per_species[i], sim_MC.Nt) for i=1:sim_MC.N_species],  # forces
+    sim_MC.perimeter_array,
+    sim_MC.area_array,
+    sim_MC.Epot_array,
+    sim_MC.t_array,
+    sim_MC.box_sizes,
+    sim_MC.dt_array,
+    sim_MC.t1_t2_pair_array,
+    ""
+)
+
+forces = SimulationAnalysis.calculate_total_force(sim4)
+
+@test all(forces[1][1,:,:] .== 10.0)
+@test all(forces[1][2,:,:] .== 0.0)
+@test all(forces[2][1,:,:] .== 1.0)
+@test all(forces[2][2,:,:] .== 0.0)

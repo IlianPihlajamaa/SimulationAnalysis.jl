@@ -128,7 +128,7 @@ A mutable struct that holds all data for a multi-component self-propelled Vorono
 - `N_species::Int64`: Number of different particle species.
 - `Nt::Int64`: Number of time steps.
 - `dt::Float64`: Time step size.
-- `v0::Vector{Float64}`: A vector containing the active force strength of each species.
+- `v0::Vector{Vector{Float64}}`: A vector containing the active force strengths of each particle.
 - `mobility::Vector{Float64}`: A vector containing the mobility (inverse of the friction constant) of each species.
 - `N_particles_per_species::Vector{Int}`: A vector containing the number of particles for each species.
 - `r_array::Vector{Array{Float64, 3}}`: A vector of particle position arrays. Each element `r_array[i]` is a `(N_particles_per_species[i], Ndims, N_time_steps)` array for species `i`.
@@ -149,7 +149,7 @@ struct MCSPVSimulation <: Simulation
     N_species::Int64
     Nt::Int64
     dt::Float64
-    v0::Vector{Float64}
+    v0::Vector{Array{Float64,1}}
     mobility::Vector{Float64}
     N_particles_per_species::Vector{Int}
     r_array::Vector{Array{Float64, 3}}
