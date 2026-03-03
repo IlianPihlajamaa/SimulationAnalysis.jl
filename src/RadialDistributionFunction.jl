@@ -36,7 +36,7 @@ function gr2_kernel!(g_r_acc, r1, r2, task, Ntasks, N_timesteps, N1, N2, xbox_si
             println("Processing time step $t of $N_timesteps")
         end
 		for particle1 = 1:N1
-			@inbounds for particle2 = particle1+1:N2
+			@inbounds for particle2 = 1:N2
 				dx = r1[1, particle1, t] - r2[1, particle2, t]
 				dy = r1[2, particle1, t] - r2[2, particle2, t]
 				dx -= round(dx/xbox_size)*xbox_size
@@ -44,7 +44,7 @@ function gr2_kernel!(g_r_acc, r1, r2, task, Ntasks, N_timesteps, N1, N2, xbox_si
 				@fastmath dr = sqrt(abs(dx^2+dy^2))
 				index = ceil(Int64, dr / binsize)
 				index2 = ifelse(0<index<=Nbins, index, 1)
-				g_r_acc[index2, task] += 2
+				g_r_acc[index2, task] += 1
 			end
 		end
 	end
